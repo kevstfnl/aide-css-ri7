@@ -1,0 +1,266 @@
+/*
+
+===> À LIRE <===
+
+==============================================================================================================================================================
+ * EXPLICATION COMPLETE DU FONCTIONNEMENT:
+
+dans la partie ":root {}"
+    je defini un ensemble de couleurs, (primare, secondaire, des couleurs propre au background ou au bordure) 
+    avec (ici en l'occurence) des variations allant de plus claire (1), a plus sombre (5).
+    que je stoque dans des variables (les variables en css commence par "--" suivie d'un nom.
+    mais en deux version dark et light (vous pouvez les faire générer par ia ou chercher des palettes sur https://coolors.co/).
+
+ensuite vient la partie @media (prefers-color-scheme: dark) et @media (prefers-color-scheme: light),
+    ses medias queries permettent de detecté si l'utilisateur a choisi un theme de couleurs préféré dans sont navigateur (mode sombre ou clair).
+    a l'interieur je regarde si la balise <html> contient les class dark ou light (qui seront ajoutés ou enlevé sdans la partie JavaScript).
+    je verifie si la balise <html> contient la class ou non avec les pseudo-class ":is()" => si il l'a, et ":not()" si il ne l'a pas.
+
+    à l'interieur, je vais definir des varables --primary, --secondary, ect... SANS le -light ni -dark,
+        Par exemple:
+            - en mode claire: --primary-1 sera egale à --primary-light-1,
+            - et a l'inverse en mode sombre: --primary-1 sera egale à --primary-dark-1
+    
+        quand le mode sombre est choisi par defaut et que <html> n'a pas la class .light: toutes les variables type --primary- sera egale à --primary-dark.
+        quand le mode sombre est choisi par defaut et que <html> a la class .light: toutes les variables type --primary- sera egale à --primary-light.
+        quand le mode claire est choisi par defaut et que <html> n'a pas la class .dark: toutes les variables type --primary- sera egale à --primary-light.
+        quand le mode claire est choisi par defaut et que <html> a la class .dark: toutes les variables type --primary- sera egale à --primary-dark.
+
+        (Pour faire simple, la variable --primary changera automatiquement de couleurs selon le theme.) 
+
+==============================================================================================================================================================
+EXPLICATION DE L'UTILISATION:
+
+Pour finir, durant le developpement du css de votre site, pour colorisé vos éléments, vous utiliserez les variables qui changeront automatiquement::after
+pour les utilisés, c'est ainsi: var(--nom-de-la-variables),
+
+par exemple: 
+
+    header {
+        background-color: var(--background-1);
+        color: var(--text-1);
+    }
+
+Ainsi les couleurs changeront automatiquement par rapport au valeurs sauvegardé dans les variables.
+
+==============================================================================================================================================================
+VARIABLES DU PROJET:
+    (1 = plus claire, 5 = plus foncé).
+
+    --primary-[1 à 5] pour la couleur principale
+    --secondary-[1 à 5] pour la couleur secondaire
+    --background-[1 à 5] pour la couleur du background
+    --text-[1 à 5] pour la couleur des textes
+    --border-[1 à 5] pour la couleur des bordures
+
+    Le theme chosie est en principal des variation de rouge et des variations de jaune.
+    a vous de faire vos propres palettes de couleur selon votre projet et vos envie !
+
+==============================================================================================================================================================
+*/
+
+
+
+/* DÉCLARATION DES VARIABLES DE BASE: */
+:root {
+    /* PRIMARY COLORS LIGHT */
+    --primary-light-1: hsl(9, 100%, 95%);
+    --primary-light-2: hsl(9, 100%, 90%);
+    --primary-light-3: hsl(9, 100%, 85%);
+    --primary-light-4: hsl(9, 100%, 80%);
+    --primary-light-5: hsl(9, 100%, 75%);
+
+    /* PRIMARY COLORS DARK */
+    --primary-dark-1: hsl(9, 100%, 70%);
+    --primary-dark-2: hsl(9, 100%, 65%);
+    --primary-dark-3: hsl(9, 100%, 60%);
+    --primary-dark-4: hsl(9, 100%, 55%);
+    --primary-dark-5: hsl(9, 100%, 50%);
+
+    /* SECONDARY COLORS LIGHT */
+    --secondary-light-1: hsl(51, 100%, 95%);
+    --secondary-light-2: hsl(51, 100%, 90%);
+    --secondary-light-3: hsl(51, 100%, 85%);
+    --secondary-light-4: hsl(51, 100%, 80%);
+    --secondary-light-5: hsl(51, 100%, 75%);
+
+    /* SECONDARY COLORS DARK */
+    --secondary-dark-1: hsl(51, 100%, 70%);
+    --secondary-dark-2: hsl(51, 100%, 65%);
+    --secondary-dark-3: hsl(51, 100%, 60%);
+    --secondary-dark-4: hsl(51, 100%, 55%);
+    --secondary-dark-5: hsl(51, 100%, 50%);
+
+    /* BACKGROUND COLORS LIGHT */
+    --background-light-1: hsl(0, 0%, 100%);
+    --background-light-2: hsl(0, 0%, 96%);
+    --background-light-3: hsl(0, 0%, 93%);
+    --background-light-4: hsl(0, 0%, 88%);
+    --background-light-5: hsl(0, 0%, 80%);
+
+    /* BACKGROUND COLORS DARK */
+    --background-dark-1: hsl(0, 0%, 7%);
+    --background-dark-2: hsl(0, 0%, 12%);
+    --background-dark-3: hsl(0, 0%, 16%);
+    --background-dark-4: hsl(0, 0%, 21%);
+    --background-dark-5: hsl(0, 0%, 25%);
+
+    /* TEXT COLORS LIGHT */
+    --text-light-1: hsl(0, 0%, 7%);
+    --text-light-2: hsl(0, 0%, 12%);
+    --text-light-3: hsl(0, 0%, 16%);
+    --text-light-4: hsl(0, 0%, 21%);
+    --text-light-5: hsl(0, 0%, 25%);
+
+    /* TEXT COLORS DARK */
+    --text-dark-1: hsl(0, 0%, 100%);
+    --text-dark-2: hsl(0, 0%, 93%);
+    --text-dark-3: hsl(0, 0%, 87%);
+    --text-dark-4: hsl(0, 0%, 80%);
+    --text-dark-5: hsl(0, 0%, 73%);
+
+    /* BORDER COLORS LIGHT */
+    --border-light-1: hsl(0, 0%, 87%);
+    --border-light-2: hsl(0, 0%, 80%);
+    --border-light-3: hsl(0, 0%, 73%);
+    --border-light-4: hsl(0, 0%, 67%);
+    --border-light-5: hsl(0, 0%, 60%);
+
+    /* BORDER COLORS DARK */
+    --border-dark-1: hsl(0, 0%, 20%);
+    --border-dark-2: hsl(0, 0%, 27%);
+    --border-dark-3: hsl(0, 0%, 33%);
+    --border-dark-4: hsl(0, 0%, 40%);
+    --border-dark-5: hsl(0, 0%, 47%);
+}
+
+/* THEME PAR DEFAUT DE L'UTILISATEUR SOMBRE */
+@media (prefers-color-scheme: dark) {
+
+    /* Si html n'a pas la class ".light" */
+    html:not(.light) {
+        --primary-1: var(--primary-dark-1);
+        --primary-2: var(--primary-dark-2);
+        --primary-3: var(--primary-dark-3);
+        --primary-4: var(--primary-dark-4);
+        --primary-5: var(--primary-dark-5);
+        --secondary-1: var(--secondary-dark-1);
+        --secondary-2: var(--secondary-dark-2);
+        --secondary-3: var(--secondary-dark-3);
+        --secondary-4: var(--secondary-dark-4);
+        --secondary-5: var(--secondary-dark-5);
+        --background-1: var(--background-dark-1);
+        --background-2: var(--background-dark-2);
+        --background-3: var(--background-dark-3);
+        --background-4: var(--background-dark-4);
+        --background-5: var(--background-dark-5);
+        --text-1: var(--text-dark-1);
+        --text-2: var(--text-dark-2);
+        --text-3: var(--text-dark-3);
+        --text-4: var(--text-dark-4);
+        --text-5: var(--text-dark-5);
+        --border-1: var(--border-dark-1);
+        --border-2: var(--border-dark-2);
+        --border-3: var(--border-dark-3);
+        --border-4: var(--border-dark-4);
+        --border-5: var(--border-dark-5);
+    }
+
+    /* Si html a la class ".light" */
+    html:is(.light) {
+        --primary-1: var(--primary-light-1);
+        --primary-2: var(--primary-light-2);
+        --primary-3: var(--primary-light-3);
+        --primary-4: var(--primary-light-4);
+        --primary-5: var(--primary-light-5);
+        --secondary-1: var(--secondary-light-1);
+        --secondary-2: var(--secondary-light-2);
+        --secondary-3: var(--secondary-light-3);
+        --secondary-4: var(--secondary-light-4);
+        --secondary-5: var(--secondary-light-5);
+        --background-1: var(--background-light-1);
+        --background-2: var(--background-light-2);
+        --background-3: var(--background-light-3);
+        --background-4: var(--background-light-4);
+        --background-5: var(--background-light-5);
+        --text-1: var(--text-light-1);
+        --text-2: var(--text-light-2);
+        --text-3: var(--text-light-3);
+        --text-4: var(--text-light-4);
+        --text-5: var(--text-light-5);
+        --border-1: var(--border-light-1);
+        --border-2: var(--border-light-2);
+        --border-3: var(--border-light-3);
+        --border-4: var(--border-light-4);
+        --border-5: var(--border-light-5);
+    }
+}
+
+/* THEME PAR DEFAUT DE L'UTILISATEUR CLAIR */
+@media (prefers-color-scheme: light) {
+
+    /* Si html n'a pas la class ".dark" */
+    html:not(.dark) {
+        --primary-1: var(--primary-light-1);
+        --primary-2: var(--primary-light-2);
+        --primary-3: var(--primary-light-3);
+        --primary-4: var(--primary-light-4);
+        --primary-5: var(--primary-light-5);
+        --secondary-1: var(--secondary-light-1);
+        --secondary-2: var(--secondary-light-2);
+        --secondary-3: var(--secondary-light-3);
+        --secondary-4: var(--secondary-light-4);
+        --secondary-5: var(--secondary-light-5);
+        --background-1: var(--background-light-1);
+        --background-2: var(--background-light-2);
+        --background-3: var(--background-light-3);
+        --background-4: var(--background-light-4);
+        --background-5: var(--background-light-5);
+        --text-1: var(--text-light-1);
+        --text-2: var(--text-light-2);
+        --text-3: var(--text-light-3);
+        --text-4: var(--text-light-4);
+        --text-5: var(--text-light-5);
+        --border-1: var(--border-light-1);
+        --border-2: var(--border-light-2);
+        --border-3: var(--border-light-3);
+        --border-4: var(--border-light-4);
+        --border-5: var(--border-light-5);
+    }
+
+    /* Si html a la class ".dark" */
+    html:is(.dark) {
+        --primary-1: var(--primary-dark-1);
+        --primary-2: var(--primary-dark-2);
+        --primary-3: var(--primary-dark-3);
+        --primary-4: var(--primary-dark-4);
+        --primary-5: var(--primary-dark-5);
+        --secondary-1: var(--secondary-dark-1);
+        --secondary-2: var(--secondary-dark-2);
+        --secondary-3: var(--secondary-dark-3);
+        --secondary-4: var(--secondary-dark-4);
+        --secondary-5: var(--secondary-dark-5);
+        --background-1: var(--background-dark-1);
+        --background-2: var(--background-dark-2);
+        --background-3: var(--background-dark-3);
+        --background-4: var(--background-dark-4);
+        --background-5: var(--background-dark-5);
+        --text-1: var(--text-dark-1);
+        --text-2: var(--text-dark-2);
+        --text-3: var(--text-dark-3);
+        --text-4: var(--text-dark-4);
+        --text-5: var(--text-dark-5);
+        --border-1: var(--border-dark-1);
+        --border-2: var(--border-dark-2);
+        --border-3: var(--border-dark-3);
+        --border-4: var(--border-dark-4);
+        --border-5: var(--border-dark-5);
+    }
+}
+
+/* 
+PETIT BONUS, ON PEUT METTRE UNE TRANSITION SUR TON LES ELEMENTS POUR RENDRE LE CHANGEMENT DE THEME PLUS FLUIDE !
+*/
+* {
+    transition: color 250ms, background-color 250ms, border-color 250ms;
+}
