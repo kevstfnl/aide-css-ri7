@@ -1,140 +1,146 @@
 /*
 
-===> À LIRE <===
+EXPLICATION COMPLETE DU FONCTIONNEMENT:
 
-==============================================================================================================================================================
- * EXPLICATION COMPLETE DU FONCTIONNEMENT:
+Ce fichier peut etre intimidant vue comme ça, cependant le fonctionnement et la création de ce fichier,
+est moins complexe qu'il en a l'aire, pour expliquer les différentes partie de ce fichier css,
+je vais faire un petit schema ici meme pour ajouter une gestion des couleurs, et du theme (sombre ou claire): 
 
-dans la partie ":root {}"
-    je defini un ensemble de couleurs, (primare, secondaire, des couleurs propre au background ou au bordure) 
-    avec (ici en l'occurence) des variations allant de plus claire (1), a plus sombre (5).
-    que je stoque dans des variables (les variables en css commence par "--" suivie d'un nom.
-    mais en deux version dark et light (vous pouvez les faire générer par ia ou chercher des palettes sur https://coolors.co/).
 
-ensuite vient la partie @media (prefers-color-scheme: dark) et @media (prefers-color-scheme: light),
-    ses medias queries permettent de detecté si l'utilisateur a choisi un theme de couleurs préféré dans sont navigateur (mode sombre ou clair).
-    a l'interieur je regarde si la balise <html> contient les class dark ou light (qui seront ajoutés ou enlevé sdans la partie JavaScript).
-    je verifie si la balise <html> contient la class ou non avec les pseudo-class ":is()" => si il l'a, et ":not()" si il ne l'a pas.
+Définition et utilisation de variables en CSS:
+    ":root": cette pseudo-class est utilisé pour définir des variables par defaut (oui comme en JavaScript),
+    ses variables, peuvent etre utilisées et définies meme en dehors de ":root",
+    elle peuvent contenirs des valeurs (px, %, vh, ...), des couleurs (rgb(), hsl(), ...)
+    mais aussi toutes valeurs de propriétés (solid, ease-in-out.
 
-    à l'interieur, je vais definir des varables --primary, --secondary, ect... SANS le -light ni -dark,
-        Par exemple:
-            - en mode claire: --primary-1 sera egale à --primary-light-1,
-            - et a l'inverse en mode sombre: --primary-1 sera egale à --primary-dark-1
-    
-        quand le mode sombre est choisi par defaut et que <html> n'a pas la class .light: toutes les variables type --primary- sera egale à --primary-dark.
-        quand le mode sombre est choisi par defaut et que <html> a la class .light: toutes les variables type --primary- sera egale à --primary-light.
-        quand le mode claire est choisi par defaut et que <html> n'a pas la class .dark: toutes les variables type --primary- sera egale à --primary-light.
-        quand le mode claire est choisi par defaut et que <html> a la class .dark: toutes les variables type --primary- sera egale à --primary-dark.
+    Les variables en css ressemble à ça: "--nom-de-la-variables" (les deux tirets sont obligatoire),
+    Voici comment:
+        - Definir une nouvelle variables: "--ma-variable: valeur",
+        - Utiliser / Récupérer la valeurs d'une variables: "var(--ma-variable")".
 
-        (Pour faire simple, la variable --primary changera automatiquement de couleurs selon le theme.) 
+    Pour en revenir à la gestion des couleurs et du theme, il me suffit de préparer, un ensemble de couleur,
+    (une couleurs primaire, secondaire, une couleur pour le background, peut etre des bordures, ou autre ?),
+    c'est dans la partie ":root" que je vais définir toutes les couleurs de mon site mais avec quelques variations.
 
-==============================================================================================================================================================
-EXPLICATION DE L'UTILISATION:
+    En l'occurence, pour ce pprojet j'ai choisi d'utilisé du rouge comme couleur principale,
+    et du jaune en couleur complementaire, cependant je vais avoir besoins de plusieurs variations de ses memes couleurs,
+    (version plus claire, plus foncé) mais aussi d'une version qui s'affichera bien avec un mode sombre.
 
-Pour finir, durant le developpement du css de votre site, pour colorisé vos éléments, vous utiliserez les variables qui changeront automatiquement::after
-pour les utilisés, c'est ainsi: var(--nom-de-la-variables),
+    C'est pour cela que dans ma partie :root j'ai ennormément de variables définies,
+    j'ai choisi de faire 5 variations possible de chaque couleurs pour chaque theme, je me retrouve donc avec des variables
+    nommé ainsi: "--primary-[dark ou light]-[1 à 5]: "1" etant la version la plus claire et "5" la plus foncé.
 
-par exemple: 
 
-    header {
-        background-color: var(--background-1);
-        color: var(--text-1);
-    }
+Pour le choix des couleurs / la création de palette de couleur, vous pouvez utiliser https://coolors.co/), ou vous faire aider par votre IA favorite.
 
-Ainsi les couleurs changeront automatiquement par rapport au valeurs sauvegardé dans les variables.
-
-==============================================================================================================================================================
-VARIABLES DU PROJET:
-    (1 = plus claire, 5 = plus foncé).
-
-    --primary-[1 à 5] pour la couleur principale
-    --secondary-[1 à 5] pour la couleur secondaire
-    --background-[1 à 5] pour la couleur du background
-    --text-[1 à 5] pour la couleur des textes
-    --border-[1 à 5] pour la couleur des bordures
-
-    Le theme chosie est en principal des variation de rouge et des variations de jaune.
-    a vous de faire vos propres palettes de couleur selon votre projet et vos envie !
-
-==============================================================================================================================================================
 */
-
-
 
 /* DÉCLARATION DES VARIABLES DE BASE: */
 :root {
     /* PRIMARY COLORS LIGHT */
-    --primary-light-1: hsl(9, 100%, 95%);
-    --primary-light-2: hsl(9, 100%, 90%);
-    --primary-light-3: hsl(9, 100%, 85%);
-    --primary-light-4: hsl(9, 100%, 80%);
-    --primary-light-5: hsl(9, 100%, 75%);
+    --primary-light-1: hsl(9, 80%, 55%);
+    --primary-light-2: hsl(9, 80%, 50%);
+    --primary-light-3: hsl(9, 80%, 45%);
+    --primary-light-4: hsl(9, 80%, 40%);
+    --primary-light-5: hsl(9, 80%, 35%);
 
     /* PRIMARY COLORS DARK */
-    --primary-dark-1: hsl(9, 100%, 70%);
-    --primary-dark-2: hsl(9, 100%, 65%);
-    --primary-dark-3: hsl(9, 100%, 60%);
-    --primary-dark-4: hsl(9, 100%, 55%);
-    --primary-dark-5: hsl(9, 100%, 50%);
+    --primary-dark-1: hsl(9, 90%, 30%);
+    --primary-dark-2: hsl(9, 90%, 25%);
+    --primary-dark-3: hsl(9, 90%, 20%);
+    --primary-dark-4: hsl(9, 90%, 15%);
+    --primary-dark-5: hsl(9, 90%, 10%);
 
     /* SECONDARY COLORS LIGHT */
-    --secondary-light-1: hsl(51, 100%, 95%);
-    --secondary-light-2: hsl(51, 100%, 90%);
-    --secondary-light-3: hsl(51, 100%, 85%);
-    --secondary-light-4: hsl(51, 100%, 80%);
-    --secondary-light-5: hsl(51, 100%, 75%);
+    --secondary-light-1: hsl(51, 80%, 45%);
+    --secondary-light-2: hsl(51, 80%, 40%);
+    --secondary-light-3: hsl(51, 80%, 35%);
+    --secondary-light-4: hsl(51, 80%, 30%);
+    --secondary-light-5: hsl(51, 80%, 25%);
 
     /* SECONDARY COLORS DARK */
-    --secondary-dark-1: hsl(51, 100%, 70%);
-    --secondary-dark-2: hsl(51, 100%, 65%);
-    --secondary-dark-3: hsl(51, 100%, 60%);
-    --secondary-dark-4: hsl(51, 100%, 55%);
-    --secondary-dark-5: hsl(51, 100%, 50%);
+    --secondary-dark-1: hsl(51, 90%, 25%);
+    --secondary-dark-2: hsl(51, 90%, 20%);
+    --secondary-dark-3: hsl(51, 90%, 15%);
+    --secondary-dark-4: hsl(51, 90%, 10%);
+    --secondary-dark-5: hsl(51, 90%, 5%);
 
     /* BACKGROUND COLORS LIGHT */
-    --background-light-1: hsl(0, 0%, 100%);
-    --background-light-2: hsl(0, 0%, 96%);
-    --background-light-3: hsl(0, 0%, 93%);
-    --background-light-4: hsl(0, 0%, 88%);
-    --background-light-5: hsl(0, 0%, 80%);
+    --background-light-1: hsl(9, 5%, 98%);
+    --background-light-2: hsl(9, 5%, 90%);
+    --background-light-3: hsl(9, 5%, 85%);
+    --background-light-4: hsl(9, 5%, 80%);
+    --background-light-5: hsl(9, 5%, 75%);
 
     /* BACKGROUND COLORS DARK */
-    --background-dark-1: hsl(0, 0%, 7%);
-    --background-dark-2: hsl(0, 0%, 12%);
-    --background-dark-3: hsl(0, 0%, 16%);
-    --background-dark-4: hsl(0, 0%, 21%);
-    --background-dark-5: hsl(0, 0%, 25%);
+    --background-dark-1: hsl(9, 10%, 2%);
+    --background-dark-2: hsl(9, 10%, 8%);
+    --background-dark-3: hsl(9, 10%, 15%);
+    --background-dark-4: hsl(9, 10%, 20%);
+    --background-dark-5: hsl(9, 10%, 25%);
 
     /* TEXT COLORS LIGHT */
-    --text-light-1: hsl(0, 0%, 7%);
-    --text-light-2: hsl(0, 0%, 12%);
-    --text-light-3: hsl(0, 0%, 16%);
-    --text-light-4: hsl(0, 0%, 21%);
-    --text-light-5: hsl(0, 0%, 25%);
+    --text-light-1: hsl(9, 5%, 3%);
+    --text-light-2: hsl(9, 5%, 10%);
+    --text-light-3: hsl(9, 5%, 18%);
+    --text-light-4: hsl(9, 5%, 25%);
+    --text-light-5: hsl(9, 5%, 30%);
 
     /* TEXT COLORS DARK */
-    --text-dark-1: hsl(0, 0%, 100%);
-    --text-dark-2: hsl(0, 0%, 93%);
-    --text-dark-3: hsl(0, 0%, 87%);
-    --text-dark-4: hsl(0, 0%, 80%);
-    --text-dark-5: hsl(0, 0%, 73%);
+    --text-dark-1: hsl(9, 5%, 98%);
+    --text-dark-2: hsl(9, 5%, 95%);
+    --text-dark-3: hsl(9, 5%, 92%);
+    --text-dark-4: hsl(9, 5%, 88%);
+    --text-dark-5: hsl(9, 5%, 83%);
 
     /* BORDER COLORS LIGHT */
-    --border-light-1: hsl(0, 0%, 87%);
-    --border-light-2: hsl(0, 0%, 80%);
-    --border-light-3: hsl(0, 0%, 73%);
-    --border-light-4: hsl(0, 0%, 67%);
-    --border-light-5: hsl(0, 0%, 60%);
+    --border-light-1: hsl(9, 5%, 80%);
+    --border-light-2: hsl(9, 5%, 75%);
+    --border-light-3: hsl(9, 5%, 70%);
+    --border-light-4: hsl(9, 5%, 65%);
+    --border-light-5: hsl(9, 5%, 60%);
 
     /* BORDER COLORS DARK */
-    --border-dark-1: hsl(0, 0%, 20%);
-    --border-dark-2: hsl(0, 0%, 27%);
-    --border-dark-3: hsl(0, 0%, 33%);
-    --border-dark-4: hsl(0, 0%, 40%);
-    --border-dark-5: hsl(0, 0%, 47%);
+    --border-dark-1: hsl(9, 10%, 5%);
+    --border-dark-2: hsl(9, 10%, 10%);
+    --border-dark-3: hsl(9, 10%, 15%);
+    --border-dark-4: hsl(9, 10%, 20%);
+    --border-dark-5: hsl(9, 10%, 25%);
 }
 
-/* THEME PAR DEFAUT DE L'UTILISATEUR SOMBRE */
+
+/* 
+
+Application du mode sombre au projet::after
+
+    Dans cette partie, je vais tous simplement définir de nouvelles variables,
+    cette fois-ci sans "dark", ou "light" contenue dans le nom, cela me permet d'utiliser
+    qu'un seul "type" de variable qui seront automatiquement mis à jour selon le theme de l'utilisateur.
+
+    Mais comment faire pour récupérer le theme de l'utilisateur ?
+
+    C'est là que les media queries entre en jeux, ils ne servent pas qu'à faire des sites responsive !
+    En l'occurence c'est:
+        - @media (prefers-color-scheme: dark)
+        - @media (prefers-color-scheme: light)
+
+    qui vont nous interrésé, comme leurs nom l'indique, ils permettent de savoir si l'utilisateur,
+    a dans les parametres de sont navigateur, une préférence pour un theme claire ou sombre.
+    ainsi nous pouvons attribuer nos variables.
+
+    Cependant, certains utilisateur voudrons certainement pouvoir changer le theme sur votre site,
+    pour faire cela c'est avec l'aide de JavaScript que nous allons procédé. (voir "/src/theme.js").
+    Ce script va permettre, au clique sur un bouton, d'ajouter une class (dark ou light) à notre élément <html>
+    ensuite grace au pseudo-class ":not()" et ":is()", nous pouvons vérifier si, notre élément contient la class
+    correspondante au theme ! 
+
+*/
+
+
+/* 
+THEME PAR DEFAUT DE L'UTILISATEUR SOMBRE 
+(ici je définie selon le theme du site toutes les variables de couleurs sans "-dark" ni "-light")
+*/
 @media (prefers-color-scheme: dark) {
 
     /* Si html n'a pas la class ".light" */
@@ -258,9 +264,37 @@ VARIABLES DU PROJET:
     }
 }
 
-/* 
-PETIT BONUS, ON PEUT METTRE UNE TRANSITION SUR TON LES ELEMENTS POUR RENDRE LE CHANGEMENT DE THEME PLUS FLUIDE !
+/*
+
+Utilisation dans le projet:
+
+    Pour finir, durant le developpement du css de votre site, pour colorisé vos éléments,
+    les variables qui seront, selon le theme et les préférences de l'utilisateur, mis à jour, automatiquement.
+
+    par exemple, dans ce projet, pour mettre un background sur un élément on utilisera:
+        "background-color: var(--background-[un numéro entre 1 et 5]"
+    
+    Idem pour les autres couleurs que vous aurais définies !
+
+
+
+Liste des variables de ce projet:
+    --primary-[1 à 5] (les couleurs principales)
+    --secondary-[1 à 5] (les couleurs secondaires)
+    --background-[1 à 5] (les couleurs de background)
+    --text-[1 à 5] (les couleurs de texte)
+    --border-[1 à 5] (les couleurs de bordure)
+
+     (1 = plus claire, 5 = plus foncé)
+
+    Le theme chosie est en principal des variation de rouge et des variations de jaune.
+    a vous de faire vos propres palettes de couleur selon votre projet et vos envie !
+
 */
+
+
+
+/* Petit bonus, vous pouvez mettre une transition sur tout les éléments coloré, pour que le changement de theme soit plus progressif et fluide ! */
 * {
     transition: color 250ms, background-color 250ms, border-color 250ms;
 }
