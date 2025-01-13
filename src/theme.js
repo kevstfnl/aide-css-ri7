@@ -1,32 +1,28 @@
-/*
- * ATTENTION CE SCRIPT JAVASRIPT DOIT ETRE CHARGÉ DANS LA PARTIE HEAD DU DOM,
- * SANS LE PARAMETRE "DEFER", IL EST IMPORTANT QUE SELUI-CI SOIT CHARGÉ AVANT LE CONTENUE DE LA PAGE
- * POUR EVITER UN EVENTUELLE CLIGNOTTEMENT LORS DU CHARGEMENT DE LA PAGE.
-*/
+const themeButtonSelector = ".theme-button";
+const html = document.documentElement;
 
-const html = document.documentElement; // documentElement = <html> dans le dom
-
-// J'ajoute le theme sauvegardé dans le localStorage dans une class du documentElement.
+// Apply current theme saved in localStorage
 const themeSaved = localStorage.getItem("theme");
 if (themeSaved) html.classList.add(themeSaved);
 
-// Quand le contenue de la page est chargé je recupère le bouton pour changer de theme,
-// et je lui ajoute l'evenement "click" pour pouvoir changer de theme.
+// Add event listener to toggle-theme button when DOM are loaded.
 document.addEventListener("DOMContentLoaded", themeInitialisation);
+
+/** 
+ * Event listener to toggling theme.
+*/
 function themeInitialisation() {
-    document.querySelector(".theme-button").addEventListener("click", toggleTheme);
+    document.querySelector(themeButtonSelector).addEventListener("click", toggleTheme);
 }
 
+/** 
+ * Toggle theme and save current selected theme to localStorage.
+*/
 function toggleTheme() {
-    // Si les préférences (dans le navigateur) de l'utilisateur est le theme sombre,
-    // je toggle (ajoute si non présent, enlève si présent) la class "light" dans documentElement,
-    // et je le sauvegarde dans le localStorage.
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
         html.classList.toggle("light");
         localStorage.setItem("theme", html.classList.contains("light") ? "light" : null);
     } 
-    // Sinon je toggle la class dark dans documentElement,
-    // et je le sauvegarde dans le localStorage.
     else {
         html.classList.toggle("dark");
         localStorage.setItem("theme", html.classList.contains("dark") ? "dark" : null);

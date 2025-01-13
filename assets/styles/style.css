@@ -1,63 +1,27 @@
-/* 
-==============================================================================================================================
-    "@import "url" permet d'ajouté un fichier externe a notre fichier css,
-    c'est un moyen de séparé les fichiers css et ainsi mieux s'organisé dans sont projet.
-    C'est dans le fichier "variables.css" que contient toute la logique du mode sombre. */
 @import "./variables.css";
 
-
-
-/*
-==============================================================================================================================
-    Cette partie est un "css reset", elle permet entre autre de supprimer les styles (pas tres beau) appliqué par defauts.
-    mais aussi d'ajouter des petites règles de base à des éléments que l'on applique casiment systématiquement aux éléments,
-    cela permet donc de moins ce répéter (appliqué les memes style a chaque bouton un a un par exemple...)
-    et de ce concentrer sur le style essentiel.
-
-    (il y a plein de css reset sur internet (le reset de Tailwind, Bootstrap, ou de Web designer, ...), 
-    celui-là est un mélange de ce que j'utilise sur tout mes projets css, et que j'ajoute directement,
-    avant meme de commencer a réfléchir a ma page web.) */
-
+/* CSS - RESET */
 * {
-    /* Par defaut on enlève les marges et les espacement de tout les elements (on préfère gérer nous meme !) */
     margin: 0;
     padding: 0;
-
-    /* 
-        Le paramètre "box-sizing: border-box", permet de dire au navigateur que lorsqu'on definit une width et une height,
-        la taille des borders soit compris dans la la taille de l'élément.
-        (utile pour des animations avec les bordures sans faire bouger tout les éléments autours) */
     box-sizing: border-box;
 }
 
-
 a {
-    /* On enlève tout les traits sous les textes des liens,
-    et lui met une couleurs plus propre que le blue par defaut. */
     text-decoration: none;
-    color: var(--text-1);
-
-    /* Par la suite, il est fréquent d'ajouter aux éléments <a> une class="btn" définie dans une autre section */
+    color: black;
 }
 
 ul,
 ol {
-    /* On enlève les points / numéro de toutes les listes */
     list-style: none;
 }
 
 button {
-    /* On met le changement de curseur quand on passe la souris sur un bouton (pourquoi c'est pas par defaut ?!) */
     cursor: pointer;
-
-    /* On dégage le style des boutons par defaut (background et border gris pas beau...) */
     border: none;
     background: none;
-    color: var(--text-1);
-
-    /* 44px est la taille recommandé généralement pour des boutons facilement utilisable sur mobile,
-        cette petite regles d'ux disign a été partagé par Apple peut apres la sortie du premier iPhone.
-        (Cadeaux pour votre culture générale ! :p). */
+    color: black;
     min-height: 44px;
 }
 
@@ -67,333 +31,30 @@ h3,
 h4,
 h5,
 h6 {
-    /* Applique un retours à la ligne stricte, lorsque le texte est coupé par manque de place,
-        le mot suivant est placé à la ligne inférieur tout simplement, le text-wrap: balance
-        est plus adapté pour les titres car (noramlement) plus court que des paragraphes. */
     text-wrap: balance;
 }
 
 p {
-    /* Applique un retours à la ligne plus equilibré, lorsque le texte est coupé,
-        contrairement au mode balance, le text-wrap: pretty,
-        va empécher les mots de ce retrouvé seule sur une ligne, ce qui signifie que non pas des mots,
-        mais des groupes de mot seront placé a la ligne en dessous en cas de coupure par manque de place. */
     text-wrap: pretty;
-    color: var(--t);
 }
 
 body {
-    /* Police d'ecriture par defaut de l'ordinateur de l'utilisateur,
-        les polices téléchargé peuvent alourdir votre page car l'utilisateur (sans s'en rendre compte),
-        telecharge la police que vous avez choisi.
-        C'est en partie pour cela mais aussi par convention,
-        qu'ont ne met pas plus d'une voir exeptionnellement deux police d'ecriture/font par site.
-
-        Les fonts apres la première virgule sont aussi des polices d'ecriture présent par défaut sur les orinateurs des utilisateurs,
-        ceux-ci s'applique à la page si la police précédente n'a pas pu etre chargé par l'utilisateur. 
-        (Dans le cas présent completement improbable). */
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-
-    /* Couleur des variables définie dans "./variables.css" (qui ce mettent à jour selon le theme) */
-    background-color: var(--background-5);
-    color: var(--text-1);
-
-    /* Mouvement fluide lors du click dans un lien encre (vers un contenu de la même page <a href="#section">) */
     scroll-behavior: smooth;
-
-    /* Espacement entre la position la plus basse et la plus haute d'un caractère ou d'une lettre (variable selon la police d'ecriture).
-        Ce paramètre pose beaucoup de probleme, et beaucoup de tentative de mise à jour tente de le corrigé/remplacer,
-        il cause souvent par defaut des problemes vis à vis des marges et des espacements 
-        (souvent plus espacé en haut que sur les côté ou l'inverse, lorsqu'il est dans une boite avec bordure visible).
-
-        Beaucoup de disigner sur internet précaunise d'utiliser pour le moment la valeur 1.5,
-        j'ai de mon côté pas vue de problème avec cette valeur (en laissant par defaut et en jouant avec, oui) donc je la met par defaut).
-
-        Il arrive que dans un bouton, le texte a l'intérieur paraisse mal centré, mettre dans celui-ci line-height: 0,
-        peut dans certains cas corrigé le probleme.
-        Si vous voulez en savoir plus sur le paramètres line-height et ses problemes,
-        grafikart a fait une vidéo sur le sujet (https://www.youtube.com/watch?v=cks3qtMCP6M). */
     line-height: 1.5;
-
-    /* Cache les éléments debordant de l'élément et enlève la bar de scroll horizontal. */
     overflow-x: hidden;
-
 }
 
-
-
-/*
-=================================================================================================================================
-    Dans cette partie je definie des class qui peuvents entre utile durant le développement,
-    pas tres grave si je ne les utilises pas, cependant cela me permet d'ajouter plus rapidement un style
-    a mes éléments sans quitter mon fichier html ou meme de les ajouter de façon plus facile dans le Javascript.
-
-    Exemple pour cacher un élément avec javascript: 
-        element.classList.add("hidden"); // ajoute la class "hidden" a mon élément. */
-
-
-/* Raccourcis pour les couleurs de background */
-.bg-5 {
-    background-color: var(--background-5);
-}
-
-.bg-4 {
-    background-color: var(--background-4);
-}
-
-.bg-3 {
-    background-color: var(--background-3);
-}
-
-.bg-2 {
-    background-color: var(--background-2);
-}
-
-.bg-1 {
-    background-color: var(--background-1);
-}
-
-/* Raccourcis pour les couleurs de text avec couleurs primaires */
-.pri-5 {
-    color: var(--primary-5);
-}
-
-.pri-4 {
-    color: var(--primary-4);
-}
-
-.pri-3 {
-    color: var(--primary-3);
-}
-
-.pri-2 {
-    color: var(--primary-2);
-}
-
-.pri-1 {
-    color: var(--primary-1);
-}
-
-/* Raccourcis pour les couleurs de text avec couleurs secondaires */
-.sec-5 {
-    color: var(--secondary-5);
-}
-
-.sec-4 {
-    color: var(--secondary-4);
-}
-
-.sec-3 {
-    color: var(--secondary-3);
-}
-
-.sec-2 {
-    color: var(--secondary-2);
-}
-
-.sec-1 {
-    color: var(--secondary-1);
-}
-
+/* GLOBAL CLASS */
 .hidden {
-    /* Astuce pour des animations d'apparition/disparition de modale':
-        - il es possible de faire un translate de sorte a le faire sortir de l'ecran,
-        (avec overflow-x: hidden (sur le body) ou si l'élément est en position fixed, ni l'élément, ni le debordement ne sera affiché).
-        - ou de modifier ça scale à 0% pour faire des animation a la place du "display: none;" .*/
     display: none !important;
 }
-
-/* Modele de boite par defaut (div, article, ...) */
-.box {
-    /* 1em = taille de la font-size utilisé dans l'élément */
-    padding: 1em;
-    border-radius: 16px;
-    border: 4px solid transparent;
-    transition: color 250ms, background-color 250ms, box-shadow 250ms, transform 250ms;
-    box-shadow: rgba(0, 0, 0, 0.25) 8px 8px 0;
-
-    /* Cette partie utilise ce que l'on appelle le "nesting", 
-        autrefois implémenté par le framework "SASS/SCSS", il est maintenant natif a CSS,
-
-        "&:hover" pourrait ce traduire par ".box:hover" dans le cas présent, mais plutot que de sortir des acollades
-        et de réécrire le electeur précedent plus l'element ou la class/pseudo class a ajouter,
-        on peut directement ecrire la suite du selecteur dans les accollades du précédent.
-        cela ajoute est completement optionnel et simplement un peut plus de lisibilité au yeux de certains. */
-    &:hover {
-        transform: translate(-8px, -8px);
-        box-shadow: rgba(0, 0, 0, 0.25) 16px 16px 0;
-    }
-}
-
-/* Modele de bouton par defaut (a, button, ...) */
-.btn {
-    border-radius: 8px;
-
-    /* Bordure de base transparente pour faire une animation sur la couleurs de la bordure */
-    border: 4px solid transparent;
-    color: var(--text-1);
-    font-weight: 700;
-    transition: color 250ms, background-color 250ms, border-color 250ms;
-
-    &:hover {
-        border: 4px solid rgba(255, 255, 255, 0.2);
-    }
-}
+.btn {}
 
 
-
-/*
-=================================================================================================================================
-    A partir de là, je stylise ma page comme vous en avez certainement l'habitude,
-    lorsque mon projet contient plusieurs page, habituellement je garderais tout ce qui est ci-dessus,
-    dans ce fichier que je renommerais "global.css", je créerais un nouveaux fichier .css
-    portant le meme nom que la page html correspondante, dans lequel il ne faut pas oublié le @import "nomDeCeFicher.css"
-
-    Dans le cas présent, je n'ai qu'une seul page donc j'ai préférer tout mettre dans le meme css hormis les variables. */
-
-
-
-/* Dans mes projet je met la plupart du temps une div à la suite du body qui englobe le contenue de ma page (header, main, footer, ...),
-    div que j'appelle #app, c'est souvent le seul élément que je selectionne en CSS par sont id, car c'est lui que j'utilise pour.
-    structurer de façon globale ma page, les emplacements, la tailles, et les comportements de tous mes éléments.
-    body, selon moi ne représente que le background du site, il ne contients que des propriétés globale de la page qu'il applique,
-    a ses enfants comme les polices d'écritures, leurs tailles et espacement, mais en aucun cas ils gèrent la mise en page. */
+/* GLOBAL STYLE */
 #app {
     display: grid;
-
-    /* Les 3 valeurs (qui représente la taille des lignes),
-        informe le navigateur que l'élément va placer 3 lignes avec les tailles définie,
-        cela signifie que l'on peut mettre une infinité de ligne en mettant une infinité de valeurs.
-
-        Cela est pareil pour grid-template-column (non utile dans ce cas précis).
-        Mais attention, cela signifie que l'élément (#app en l'occurrence) est précisément 3 enfants
-        (dans le cas présent "header", "main" et "foooter").
-     */
     grid-template-rows: 50px 1fr 100px;
-
-    /* et je lui dit par defaut que la hauteur minimum est la taille de l'ecran */
     min-height: 100vh;
-
 }
-
-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-h1 {
-    /* L'unité de mesure "rem" correspond à la taille de la police d'ecriture par defaut de la page ou du navigateur,
-        modifiable par l'utilisateur dans les paramètres du navigateur (options pour les mals voyants)
-        mais aussi par nous en ajoutant la règle "font-size: (nombre de pixel)" dans le body, le rem prendra cette valeur.
-        c'est pour des question de lisibilité et d'accesibilité,
-        qu'il est préférable d'utilisé les "rem" pour définir la taille des textes.
-        Par defaut 1rem = 16px; */
-    font-size: 2.5rem;
-}
-
-h2 {
-    font-size: 2rem;
-}
-
-h3 {
-    font-size: 1.5rem;
-}
-
-h4 {
-    font-size: 1.25rem;
-}
-
-footer {
-    display: flex;
-    align-items: center;
-
-    /* Inline signifie droite et gauche (au contraire, block signifie haut et bas),
-        l'unité de mesure em représente la taille de la font-size de l'élément
-        (souvent utilisé pour les marges et espacements).*/
-    padding-inline: 2em;
-}
-
-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    gap: 16px;
-    padding: 1em;
-}
-
-section {
-    max-width: 90vw;
-}
-
-article {
-    transition: border-color 250ms, background-color 250ms, color 250ms, transform 250ms;
-
-    &:hover {
-        transform: scale(105%);
-    }
-}
-
-.articles-container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 1em;
-    padding: 1em;
-
-    article {
-        width: 300px;
-
-        /* Encore du CSS nesting comme expliqué plus haut,
-            cependant je frole la limite (fictive) ordonées par les contventions,
-            qui disent de ne pas allé au dela de 3 voir 4 selecteur succesifs.
-
-            (l'élément ".articles-container" qui a pour enfant "article" qui a pour enfant "p...", 
-            ce selecteur est déja tres précis, aller plus loins est dans la plupars des cas inutile (meme sans nesting).
-            les longs selecteurs alourdisses la quantité de code et le rend moins lisibles, ce n'est pas le but recherché. */
-        p {
-
-            font-size: 1rem;
-            margin-left: 16px;
-        }
-    }
-}
-
-.theme-button-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-
-    .theme-button {
-        padding: 0.5em;
-        background-color: var(--primary-2);
-        box-shadow: var(--primary-4) 5px 5px 0;
-        font-size: 1.5rem;
-        transform: translate(0);
-        transition: transform 150ms, box-shadow 150ms, background-color 250ms, color 250ms, border-color 250ms;
-
-        /*
-            Nous pouvons enchainé les nestings à la suite,
-            mais attention, comment en css l'ordre comme en css est important dans certains cas comme ici,
-
-            &:active, remplacera &:hover car celui-ci est appliqué en dernier.
-
-            Si les "&:active" et "&:hover" etais inversé, le style appliqué lors clique de la souris sur l'élément,
-            serais ce qui est mit dans le "&:hover", car durant le clique, l'utilisateur a la souris sur l'élément,
-            donc les règles de "&:hover" et "&:active" sont donc appliqués dù au fait que leurs conditions d'activation sont remplis,
-            dans ce cas, "&:active" etant apres "&:hover", celui-ci remplace ce qui est fait, par "&:hover". */
-        &:hover {
-            background-color: var(--primary-1);
-            box-shadow: var(--primary-3) 5px 5px 0;
-        }
-
-        &:active {
-            box-shadow: var(--primary-3) 0 0 0;
-            transform: translate(5px, 5px);
-        }
-    }
-}
-
