@@ -17,9 +17,8 @@ function themeInitialisation() {
     document.querySelector(".theme-button").addEventListener("click", toggleTheme);
 }
 
-
 function toggleTheme() {
-    // Si les préférence (dans le navigateur) de l'utilisateur est le theme sombre,
+    // Si les préférences (dans le navigateur) de l'utilisateur est le theme sombre,
     // je toggle (ajoute si non présent, enlève si présent) la class "light" dans documentElement,
     // et je le sauvegarde dans le localStorage.
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
